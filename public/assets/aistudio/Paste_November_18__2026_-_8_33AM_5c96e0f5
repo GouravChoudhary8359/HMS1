@@ -1,0 +1,322 @@
+Objective (s): TO PREPARE THE SOFTWARE REQUIREMENTS SPECIFICATION (SRS) FOR THE HOSPITAL MANAGEMENT SYSTEM WITH 28 CORE FUNCTIONAL REQUIREMENTS.
+1. Introduction
+1.1 Purpose : This SRS defines the functional and nonfunctional requirements for a small academic Hospital Management System (HMS). The system demonstrates practical software engineering concepts through a manageable web application developed by a single student. It also provides a consistent basis for the Use Case, DFD, Activity Diagram, ER Diagram, database design, implementation, and testing.
+1.2 Document Conventions :
+•	FR-xx denotes a functional requirement.
+•	PR-xx denotes a performance requirement.
+•	SEC-xx denotes a security requirement.
+•	Priority levels are High, Medium, or Low.
+•	The term 'system' refers to the Hospital Management System described in this document.
+1.3 Intended Audience : The primary audience is the Software Engineering professor/evaluator and the student developer. Readers should first review Sections 1 and 2 for scope, then Section 3 for interfaces, Section 4 for testable functional requirements, Section 5 for quality constraints, and Section 6 for the project plan.
+1.4 Product Scope : HMS will provide basic hospital administration functions: user login and role management, patient records, doctor and department records, appointments, admission/discharge records, prescriptions and medicine records, billing/payment status, dashboard/reporting, and two simple advisory AI functions. The AI functions are academic decision-support features and are not intended to diagnose disease or replace a medical professional.
+2. Overall Description
+2.1 Product Perspective : HMS is a browser-based client-server application. The front end uses HTML, CSS and JavaScript. The back end uses Java with Spring Boot and exposes application services/API endpoints. MySQL stores users, patients, doctors, departments, appointments, admissions, prescriptions, medicines, bills and related data.
+2.2 Product Functions :
+•	Authenticate users and apply role-based access.
+•	Create, search, view and update patient information.
+•	Maintain doctor, department and availability information.
+•	Book, update, cancel and track appointments.
+•	Record patient admission, ward/bed information and discharge.
+•	Create prescriptions and maintain medicine/stock records.
+•	Generate bills, calculate totals and record payment status.
+•	Display dashboard summaries and basic reports.
+•	Suggest a department from selected symptoms using a simple rule/score approach.
+•	Suggest appointment priority using predefined severity/priority rules.
+2.3 User Classes and Characteristics :
+User Class	Main Responsibilities
+Admin	Manage users/roles and maintain master data such as doctors and departments.
+Doctor	View relevant patient information, manage prescriptions and update appointment-related status.
+Receptionist	Register patients, manage appointments, admissions/discharges and billing activities.
+Patient	View basic appointment/patient-related information if the implemented UI provides patient access.
+
+2.4 Operating Environment :
+•	Client: modern web browser such as Google Chrome, Microsoft Edge or Mozilla Firefox.
+•	Server: Java Runtime Environment with Spring Boot.
+•	Database server: MySQL.
+•	Development environment: Windows/Linux/macOS with Java IDE and MySQL.
+•	Network: local development network or standard HTTP/HTTPS web access.
+2.5 Design and Implementation Constraints :
+•	The project is developed by one student, so functionality is intentionally limited to a practical academic scope.
+•	Backend must use Java and Spring Boot.
+•	Frontend must use HTML, CSS and JavaScript.
+•	MySQL is the selected database.
+•	AI must remain simple, explainable and advisory; no clinical diagnosis or complex machine-learning pipeline is required.
+•	The system is an academic prototype and is not a certified hospital EHR/clinical platform.
+2.6 User Documentation : A concise user guide/readme will describe login, patient registration, appointment booking, admission/discharge, prescription, billing, and dashboard usage. Basic setup instructions for Java, Spring Boot and MySQL will also be included.
+2.7 Assumptions and Dependencies :
+•	Users have valid credentials and appropriate roles.
+•	The MySQL database is available during normal system use.
+•	Doctors, departments, medicines and other master data are entered correctly by authorized users.
+•	The AI suggestions are based on predefined academic rules and are not medical advice.
+•	The project will use a manageable dataset suitable for demonstration and testing.
+3. External Interface Requirements
+3.1 User Interfaces :
+•	Login page with username/email and password fields.
+•	Role-based dashboard after successful authentication.
+•	Forms for patients, doctors, departments, appointments, admissions, prescriptions, medicines and bills.
+•	Search/filter controls for patient, doctor and appointment records.
+•	Validation messages for missing, invalid or conflicting input.
+•	Simple tables/cards for displaying records and dashboard summaries.
+3.2 Hardware Interfaces : No specialized hardware is required. A standard desktop/laptop with keyboard, mouse, display, and network connectivity is sufficient.
+3.3 Software Interfaces :
+•	Java/JDK and Spring Boot for server-side application logic.
+•	MySQL for persistent data storage.
+•	Web browser for the user interface.
+•	JavaScript for client-side interaction and validation where required.
+3.4 Communications Interfaces : The browser communicates with the Spring Boot application using HTTP/HTTPS. The application communicates with MySQL using the configured database driver and connection settings.
+4. System Features
+The following eight features contain exactly 28 core functional requirements, scoped to match the diagrams and the implementation capacity of a solo developer.
+4.1 Authentication and Role Management
+Description and Priority: This feature is part of the core HMS scope. Priority: High.
+Stimulus/Response Sequences: User enters valid credentials → system verifies them → dashboard is displayed. Invalid credentials → error message.
+ID	Functional Requirement
+FR-01	The system shall authenticate a registered user using valid login credentials.
+FR-02	The system shall provide role-based access for Admin, Doctor and Receptionist functions.
+FR-03	The system shall allow an authenticated user to log out and end the active session.
+
+4.2 Patient Management
+Description and Priority: This feature is part of the core HMS scope. Priority: High.
+Stimulus/Response Sequences: User opens patient module → enters/searches patient data → system validates → record is created, displayed or updated.
+ID	Functional Requirement
+FR-04	The system shall allow an authorized user to create a patient record with required personal and contact details.
+FR-05	The system shall allow an authorized user to search and view patient records.
+FR-06	The system shall allow an authorized user to update an existing patient record.
+FR-07	The system shall validate required patient fields before saving a record.
+
+4.3 Doctor and Department Management
+Description and Priority: This feature is part of the core HMS scope. Priority: High.
+Stimulus/Response Sequences: Admin/receptionist manages doctor/department data → system stores changes → available doctors are shown for appointment use.
+ID	Functional Requirement
+FR-08	The system shall allow an authorized user to add and maintain doctor records.
+FR-09	The system shall allow an authorized user to create and maintain department records.
+FR-10	The system shall display doctor availability/listing information for appointment selection.
+
+4.4 Appointment Management
+Description and Priority: This feature is part of the core HMS scope. Priority: High.
+Stimulus/Response Sequences: User selects patient, doctor and time → system checks availability → appointment is confirmed or conflict is reported.
+ID	Functional Requirement
+FR-11	The system shall allow an authorized user to create an appointment for a patient with a selected doctor.
+FR-12	The system shall check doctor/date-time availability before confirming an appointment.
+FR-13	The system shall allow an authorized user to reschedule or cancel an appointment.
+FR-14	The system shall maintain an appointment status such as Scheduled, Completed or Cancelled.
+
+4.5 Admission and Discharge Management
+Description and Priority: This feature is part of the core HMS scope. Priority: High.
+Stimulus/Response Sequences: Patient selected → admission details entered → ward/bed/status stored → later discharge details recorded and admission closed.
+ID	Functional Requirement
+FR-15	The system shall allow an authorized user to create an admission record for a patient.
+FR-16	The system shall allow authorized users to update ward/bed and admission status information.
+FR-17	The system shall create a discharge record containing discharge date and basic discharge details.
+
+4.6 Prescription and Medicine Management
+Description and Priority: This feature is part of the core HMS scope. Priority: High.
+Stimulus/Response Sequences: Doctor selects patient → enters medicines/instructions → system validates → prescription is stored and available for viewing.
+ID	Functional Requirement
+FR-18	The system shall allow a doctor to create a prescription for a patient.
+FR-19	The system shall allow authorized users to maintain medicine records.
+FR-20	The system shall allow authorized users to view and update basic medicine stock information.
+FR-21	The system shall validate required prescription and medicine fields before saving.
+
+4.7 Billing and Payment Management
+Description and Priority: This feature is part of the core HMS scope. Priority: High.
+Stimulus/Response Sequences: User selects patient → enters bill items → system calculates total → payment status is recorded.
+ID	Functional Requirement
+FR-22	The system shall allow an authorized user to create a bill for a patient.
+FR-23	The system shall calculate the bill total from the entered bill items/charges.
+FR-24	The system shall record payment status for a bill, such as Pending or Paid.
+
+4.8 Dashboard, Reporting and Simple AI Support
+Description and Priority: This feature is part of the core HMS scope. Priority: Medium.
+Stimulus/Response Sequences: User opens dashboard → summaries/reports are displayed. User enters selected symptoms → department suggestion is returned. User enters priority inputs → Low/Medium/High suggestion is returned.
+ID	Functional Requirement
+FR-25	The system shall display dashboard summaries such as patient, appointment, admission and billing counts.
+FR-26	The system shall provide at least one basic report/list view for administrative review.
+FR-27	The system shall suggest a suitable hospital department from selected symptoms using a predefined rule/score-based algorithm.
+FR-28	The system shall suggest an appointment priority level using predefined academic priority rules.
+
+5. Nonfunctional Requirements
+5.1 Performance Requirements :
+ID	Requirement
+PR-01	For normal academic demonstration loads, common pages should respond within approximately 3 seconds.
+PR-02	Database searches for patient, doctor and appointment records should return results without unnecessary delay.
+PR-03	The application should avoid duplicate appointment bookings caused by a conflicting doctor/date-time selection.
+PR-04	Dashboard summaries should load within a reasonable time for the expected project dataset.
+
+5.2 Safety Requirements :
+•	The AI features shall be presented as advisory suggestions only.
+•	The system shall not claim that an AI suggestion is a medical diagnosis.
+•	Required input validation should reduce accidental creation of incomplete records.
+•	The system should prevent or clearly warn about conflicting appointment data.
+5.3 Security Requirements :
+ID	Requirement
+SEC-01	Passwords shall not be stored as plain text; a secure password-hashing mechanism should be used.
+SEC-02	Role-based access shall restrict functions to authorized users.
+SEC-03	Unauthenticated users shall not access protected application pages/APIs.
+SEC-04	User input shall be validated before database operations.
+SEC-05	Database credentials shall not be hard-coded into publicly visible frontend files.
+SEC-06	Sensitive session/authentication information shall be handled using the selected Spring Boot security approach.
+SEC-07	Only authorized users shall be able to modify critical patient, appointment, prescription and billing records.
+
+5.4 Software Quality Attributes :
+•	Usability: Forms and navigation should be simple enough for demonstration users to understand without extensive training.
+•	Maintainability: Backend modules, controllers/services/repositories and frontend pages should be organized logically.
+•	Reliability: Invalid operations should produce clear errors rather than silently corrupting records.
+•	Scalability: The design should allow additional modules later, but such modules are outside the current project scope.
+•	Testability: Core functions should be testable using sample users and sample hospital data.
+6. Project Plan
+6.1 Team Members :
+Role	Member	Responsibility
+Developer / Analyst / Tester	Student (Solo Developer)	Requirements, diagrams, database, backend, frontend, AI logic, testing and documentation.
+
+6.2 Division of Work :
+•	Requirements & SRS: complete scope and requirement documentation.
+•	Analysis & Design: Use Case, DFD, Activity Diagram and ER Diagram.
+•	Database: MySQL schema and relationships.
+•	Backend: Java/Spring Boot controllers, services, repositories and validation.
+•	Frontend: HTML, CSS and JavaScript pages/forms.
+•	AI Support: symptom-to-department and appointment-priority rule/score algorithms.
+•	Testing: functional testing, validation testing and integration checks.
+•	Documentation: project report, diagrams, setup guide and final presentation.
+6.3 Time Schedule :
+Week	Planned Work
+1	Requirement finalization and SRS
+2	Use Case, DFD, Activity and ER diagrams
+3	MySQL database design and Spring Boot project setup
+4	Authentication, roles and patient management
+5	Doctor/department and appointment modules
+6	Admission/discharge and prescription/medicine modules
+7	Billing, dashboard and reports
+8	Two simple AI support algorithms and integration
+9	Testing, bug fixing, documentation and final demonstration
+
+Appendix A: Glossary
+Term	Meaning
+HMS	Hospital Management System.
+SRS	Software Requirements Specification.
+FR	Functional Requirement.
+NFR	Nonfunctional Requirement.
+API	Application Programming Interface used for application communication.
+AI Support	Simple rule/score-based advisory functionality; not medical diagnosis.
+Role	Permission category such as Admin, Doctor or Receptionist.
+
+Appendix B: To Be Determined List
+•	Exact UI theme and branding can be finalized during implementation.
+•	Exact sample hospital data values will be defined during testing.
+•	Whether a separate patient login screen is included can be finalized without changing the core 28 FR scope.
+•	Exact deployment environment can be finalized after local project testing.
+•	Future integrations such as SMS/email notifications, online payment gateway, advanced analytics and real machine-learning models are outside the current scope.
+Scope consistency note: This SRS contains 28 core functional requirements. The same 28-FR scope is used for the Use Case Diagram, DFDs, Activity Diagrams, ER Diagram, database design, implementation and testing.
+•	CONCLUSION: The SRS defines the scope, 28 functional requirements and the performance, safety and security requirements of the Hospital Management System, and gives a consistent base for the design, implementation and testing of the project.
+Experiment No. 3
+Objective (s): TO IDENTIFY THE ACTORS AND MAJOR FUNCTIONAL REQUIREMENTS OF THE HOSPITAL MANAGEMENT SYSTEM USING A UML USE CASE DIAGRAM.
+•	INTRODUCTION TO USE CASE DIAGRAM :-
+A Use Case Diagram is a UML behavioral diagram used to represent the functional requirements of a software system. It describes the interaction between external actors and the use cases provided by the software. Actors represent users or external systems, while use cases represent services or tasks performed by the software. The diagram helps to show what the system does from the user's point of view.
+•	COMPONENTS OF A USE CASE DIAGRAM :-
+Component	Description
+Actor	An external entity (person or system) that interacts with the system, shown as a stick figure.
+Use Case	A function or service the system provides to an actor, shown as an ellipse.
+System Boundary	A rectangle that separates what is inside the system from what is outside it.
+Association	A straight line connecting an actor to a use case.
+<<include>>	Dotted arrow showing reusable mandatory behavior: one use case always uses another.
+<<extend>>	Dotted arrow showing optional or conditional behavior added to a use case.
+
+•	USE CASE DIAGRAM FOR HOSPITAL MANAGEMENT SYSTEM :-
+ 
+Fig. 3.1 Use Case Diagram of Hospital Management System
+•	EXPLANATION :-
+Actors in the diagram :-
+1) Admin : Manage Users, Manage Departments, View Reports, Login and Logout.
+2) Receptionist : Register Patient, Search Patient, Update Patient Record and Book Appointment.
+3) Doctor : Manage Doctors, View Doctor Schedule, check availability and handle appointment-related activities.
+4) Patient : View Appointment, Admit Patient, View Admission Details and Discharge Patient.
+5) AI System : Suggest Department based on symptoms and suggest appointment priority based on symptoms/severity as advisory functions.
+Main functional areas :-
+1) User & Department Management: Admin manages users and hospital departments.
+2) Patient Management: Receptionist registers, searches and updates patient records.
+3) Appointment Management: Appointments can be booked, checked, rescheduled, cancelled and tracked.
+4) Admission & Discharge: Patient admission, details and discharge are managed through the system.
+5) Prescription & Medicine: Doctors can create/view prescriptions and medicine stock/list information can be managed.
+6) Billing & Payment: Bills are generated, details are viewed, payments are made and payment status can be checked.
+7) Analytics & Reports: Dashboard and reports support hospital management and analysis.
+8) AI Advisory Functions: The AI System suggests a suitable department and appointment priority based on symptoms/severity. These functions are advisory and are not medical diagnosis.
+Relationships in the diagram :-
+•	Login:  Manage Users, Manage Departments and View Reports include Login.
+•	Logout:  Logout extends Login.
+•	Validation:  Register Patient and Update Patient Record include Validate Patient Data.
+•	Appointments:  Book Appointment includes Appointment Management, which includes Check Doctor Availability, Reschedule Appointment, Cancel Appointment and View Appointment Status.
+•	Prescription:  Create Prescription is included in Manage Prescription & Medicine along with Manage Medicine Stock and View Medicine List.
+•	Billing:  Generate Bill and Make Payment are included in Manage Billing; View Payment Status extends Manage Billing.
+•	Analytics & AI:  View Dashboard and Generate Reports are included in View Analytics; Suggest Department and Suggest Priority extend View Analytics and are linked to the AI System.
+•	CONCLUSION: The Use Case Diagram clearly represents the functional requirements of the Hospital Management System and the interaction of its major actors with the system. It provides a clear foundation for designing and developing the HMS by identifying responsibilities, major services, and relationships among use cases.
+Experiment No. 4
+Objective (s): TO MODEL THE APPOINTMENT BOOKING WORKFLOW OF THE HOSPITAL MANAGEMENT SYSTEM USING A UML ACTIVITY DIAGRAM WITH SWIMLANES.
+•	INTRODUCTION TO ACTIVITY DIAGRAM :-
+An Activity Diagram is a UML behavioral diagram used to describe the flow of activities and decisions in a software process. It shows the starting point, actions, decision conditions, alternative flows, responsibilities, and final state. Swimlanes identify which actor or system component performs each activity.
+•	COMPONENTS OF AN ACTIVITY DIAGRAM :-
+Component	Description
+Initial Node	A filled black circle that shows where the process starts.
+Activity / Action	A rounded rectangle that represents one step performed in the process.
+Decision Node	A diamond that splits the flow based on a condition (for example Yes / No).
+Control Flow	An arrow that connects activities and shows the order of execution.
+Swimlane	A vertical lane that shows which actor or component is responsible for an activity.
+Final Node	A circle with a border that shows where the process ends.
+
+•	ACTIVITY DIAGRAM FOR HOSPITAL MANAGEMENT SYSTEM (APPOINTMENT BOOKING) :-
+Process: Appointment Booking and Confirmation.   Swimlanes: Patient, System, Doctor, Database.
+ 
+Fig. 4.1 Activity Diagram - Appointment Booking
+•	EXPLANATION :-
+Activity flow description :-
+Step	Activity / Description
+1	Patient logs in and selects Book Appointment.
+2	Patient enters symptoms or selects doctor/department and views available doctors and time slots.
+3	System validates patient details. If invalid, an error message is shown and the flow returns for correction.
+4	If valid, the system checks doctor availability and the selected time slot.
+5	If the slot is unavailable, alternative slots are shown. If available, the appointment record is saved.
+6	Database stores the appointment data.
+7	System sends confirmation notification and patient views appointment details and confirmation.
+8	Doctor views appointment requests, accepts/rejects the appointment, and the status is updated in the system and database.
+
+Key decision points :-
+•	Patient valid? - No: show invalid-patient error and return to input/selection. Yes: continue to availability checking.
+•	Slot available? - No: show alternative slots. Yes: save appointment record and continue with confirmation.
+•	CONCLUSION: The Activity Diagram clearly represents the appointment booking process of the Hospital Management System and shows coordination among the patient, system, doctor, and database for validation, availability, storage, status update, and confirmation.
+Experiment No. 5
+Objective (s): TO REPRESENT THE FLOW OF INFORMATION WITHIN THE HOSPITAL MANAGEMENT SYSTEM USING DATA FLOW DIAGRAMS AT LEVEL 0, LEVEL 1 AND LEVEL 2.
+•	INTRODUCTION TO DATA FLOW DIAGRAM :-
+A Data Flow Diagram (DFD) is a graphical representation of how data moves through a system. Level 0 presents the complete system as one process and shows interaction with external entities. Level 1 decomposes the system into major processes, while Level 2 further expands one selected process into smaller subprocesses and data flows. The diagrams show external entities, major system processes, data stores, and movement of information between them.
+•	COMPONENTS OF DATA FLOW DIAGRAM :-
+Component	Description
+Process	Transforms input data into output data (rounded rectangle, numbered such as 1.0, 2.0).
+Data Flow	An arrow that shows the movement of information between entities, processes and data stores.
+Data Store	A place where data is stored (for example D1 Patient Data).
+External Entity	A person or system outside HMS that sends data to or receives data from the system.
+
+•	DATA FLOW DIAGRAM FOR HOSPITAL MANAGEMENT SYSTEM :-
+0-LEVEL DIAGRAM (Context Diagram)
+ 
+Fig. 5.1 DFD Level 0
+Level 0 shows the Hospital Management System as one single process. Patient, Receptionist, Doctor, and Admin exchange information with HMS.
+1-LEVEL DIAGRAM
+ 
+Fig. 5.2 DFD Level 1
+Level 1 shows the main HMS modules: Patient, Appointment, Admission, Prescription, Billing, and Reports & AI, together with the main data stores.
+2-LEVEL DIAGRAM (Appointment Management)
+ 
+Fig. 5.3 DFD Level 2 - Appointment Management
+Level 2 expands process 2.0 Appointment into 2.1 Book Appointment, 2.2 Check Availability, and 2.3 Confirm / Update. The simple flow is Book → Check Availability → Confirm.
+•	EXPLANATION :-
+External entities in the diagram :-
+1) Patient : Sends patient details/requests to HMS.
+2) Receptionist : Exchanges appointment and bill information with HMS (and gives booking details at Level 2).
+3) Doctor : Receives patient/appointment information and the appointment schedule.
+4) Admin : Receives reports and system information.
+5) Staff : Sends requests to the Prescription process (Level 1).
+Processes in the diagram :-
+1) Level 1: 1.0 Patient, 2.0 Appointment, 3.0 Admission, 4.0 Prescription, 5.0 Billing, 6.0 Reports & AI.
+2) Level 2: 2.1 Book Appointment, 2.2 Check Availability, 2.3 Confirm / Update.
+Data stores in the diagram :-
+1) D1 Patient Data: Stores patient information.
+2) D2 Appointment Data: Stores appointment records (read/written by the Appointment processes).
+3) D3 Hospital Records: Stores hospital records used by Reports & AI.
+•	CONCLUSION: The DFDs clearly represent information movement in the Hospital Management System. Level 0 gives the overall context, Level 1 shows the major functional processes, and Level 2 explains appointment processing in greater detail.

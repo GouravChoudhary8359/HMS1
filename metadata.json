@@ -1,0 +1,6 @@
+{
+  "name": "CareLedger HMS — Hospital Management System",
+  "description": "Academic Hospital Management System implementing 28 core functional requirements: RBAC authentication, patients, doctors, departments, appointments, admissions, prescriptions, pharmacy stock, billing, reports, and rule-based AI advisory.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
